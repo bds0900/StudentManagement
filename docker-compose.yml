@@ -1,0 +1,10 @@
+version: '3.4'
+
+services:
+  studentmanagement:
+    image: ${DOCKER_REGISTRY-}studentmanagement
+    build:
+      context: .
+      dockerfile: StudentManagement/Dockerfile
+    ports:
+        - 80

@@ -47,14 +47,13 @@ namespace StudentManagement.Data
 
             modelBuilder.Entity<Models.Program>()
                 .HasMany(p => p.Students)
-                .WithOne(p => p.Program);
+                .WithOne(p => p.Program!);
             modelBuilder.Entity<Models.Program>()
                 .HasMany(p => p.Courses)
-                .WithOne(p => p.Program);
+                .WithOne(p => p.Program!);
             modelBuilder.Entity<Student>()
-                .HasOne(p => p.Address)
-                .WithOne(p => p.Student)
-                .HasForeignKey<Address>(p => p.StudentId);
+                .HasOne(p => p.Address!)
+                .WithMany(p => p.Students);
             /*modelBuilder.Entity<Course>()
                 .HasMany(c => c.Students)
                 .WithMany(s => s.Courses)

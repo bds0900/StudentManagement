@@ -1,3 +1,4 @@
+using GraphQL.Server.Ui.Voyager;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
@@ -6,6 +7,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using StudentManagement.Data;
+using StudentManagement.GraphQL;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -30,6 +32,10 @@ namespace StudentManagement
         {
             services.AddDbContext<AppDbContext>(options =>
             options.UseSqlServer(Configuration.GetConnectionString("GraphqlStr")));
+
+            services
+                .AddGraphQLServer()
+                .AddQueryType<Query>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -44,11 +50,15 @@ namespace StudentManagement
 
             app.UseEndpoints(endpoints =>
             {
-                endpoints.MapGet("/", async context =>
-                {
-                    await context.Response.WriteAsync("Hello World!");
-                });
+                endpoints.MapGraphQL();
             });
+
+            app.UseGraphQLVoyager(new GraphQLVoyagerOptions()
+            {
+                GraphQLEndPoint="/graphql",
+                Path="/graphql-voyager"
+            });
+                
         }
     }
 }

@@ -10,7 +10,7 @@ namespace StudentManagement.Models
     public class Program
     {
         [Key]
-        public string Id { get; set; }
+        public string ProgramId { get; set; }
         [Required]
         public string ProgramName { get; set; }
         [Required]

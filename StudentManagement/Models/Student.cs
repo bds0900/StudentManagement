@@ -10,7 +10,7 @@ namespace StudentManagement.Models
     public class Student
     {
         [Key]
-        public string Id { get; set; }
+        public string StudentId { get; set; }
         [Required]
         public string StudentNumber { get; set; }
         [Required]
@@ -27,10 +27,12 @@ namespace StudentManagement.Models
 
 
         public string ProgramId { get; set; }
-        public Program Program { get; set; }
+        public Models.Program Program { get; set; }
+
 
         public ICollection<Course> Courses { get; set; }
-        
+        public List<CourseStudent> CourseStudent { get; set; }
+
 
     }
 }

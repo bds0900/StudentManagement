@@ -10,7 +10,7 @@ namespace StudentManagement.Models
     public class Address
     {
         [Key]
-        public string Id { get; set; }
+        public string AddressId { get; set; }
         [Required]
         public string Country { get; set; }
         [Required]

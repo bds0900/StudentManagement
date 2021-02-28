@@ -24,8 +24,8 @@ namespace StudentManagement.Models
         public string PostalCode { get; set; }
 
         
-        public string StudentId { get; set; }
-        public Student Student { get; set; }
+        
+        public ICollection<Student> Students { get; set; }
 
     }
 }

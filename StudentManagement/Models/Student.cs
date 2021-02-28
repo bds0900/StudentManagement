@@ -21,11 +21,14 @@ namespace StudentManagement.Models
         public string Email { get; set; }
         [Required]
         public string PhoneNumber { get; set; }
+
+
         [Required]
+        public string AddressId { get; set; }
         public Address Address { get; set; }
         
 
-
+        [Required]
         public string ProgramId { get; set; }
         public Models.Program Program { get; set; }
 

@@ -39,7 +39,10 @@ namespace StudentManagement
                 .AddQueryType<Query>()
                 .AddType<StudentType>()
                 .AddType<CourseType>()
-                .AddType<ProgramType>();
+                .AddType<ProgramType>()
+                .AddFiltering()
+                .AddSorting();
+
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

@@ -8,6 +8,7 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using StudentManagement.Data;
 using StudentManagement.GraphQL;
+using StudentManagement.GraphQL.Types;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -30,12 +31,15 @@ namespace StudentManagement
 
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddDbContext<AppDbContext>(options =>
+            services.AddPooledDbContextFactory<AppDbContext>(options =>
             options.UseSqlServer(Configuration.GetConnectionString("GraphqlStr")));
 
             services
                 .AddGraphQLServer()
-                .AddQueryType<Query>();
+                .AddQueryType<Query>()
+                .AddType<StudentType>()
+                .AddType<CourseType>()
+                .AddType<ProgramType>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

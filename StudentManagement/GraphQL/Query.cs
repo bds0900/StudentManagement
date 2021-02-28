@@ -1,4 +1,5 @@
 ﻿using HotChocolate;
+using HotChocolate.Data;
 using StudentManagement.Data;
 using StudentManagement.Models;
 using System;
@@ -11,19 +12,23 @@ namespace StudentManagement.GraphQL
 {
     public class Query
     {
-        public IQueryable<Models.Program> GetPrograms([Service] AppDbContext context)
+        [UseDbContext(typeof(AppDbContext))]
+        public IQueryable<Models.Program> GetPrograms([ScopedService] AppDbContext context)
         {
             return context.Programs;
         }
-        public IQueryable<Course> GetCourses([Service] AppDbContext context)
+        [UseDbContext(typeof(AppDbContext))]
+        public IQueryable<Course> GetCourses([ScopedService] AppDbContext context)
         {
             return context.Courses;
         }
-        public IQueryable<Student> GetStudents([Service] AppDbContext context)
+        [UseDbContext(typeof(AppDbContext))]
+        public IQueryable<Student> GetStudents([ScopedService] AppDbContext context)
         {
             return context.Students;
         }
-        public IQueryable<Address> GetAddresses([Service] AppDbContext context)
+        [UseDbContext(typeof(AppDbContext))]
+        public IQueryable<Address> GetAddresses([ScopedService] AppDbContext context)
         {
             return context.Addresses;
         }

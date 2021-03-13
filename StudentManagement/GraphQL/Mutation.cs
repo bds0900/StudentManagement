@@ -46,9 +46,11 @@ namespace StudentManagement.GraphQL
         [UseDbContext(typeof(AppDbContext))]
         public async Task<Student> AddStudentAsync(AddStudentInput input,[ScopedService] AppDbContext context)
         {
+            Random r = new Random();
             var programId = context.Programs.Where(p => p.ProgramNumber == input.ProgramNumber).Select(p=>p.ProgramId).FirstOrDefault();
             var student = new Student
             {
+                StudentNumber=r.Next(10,50).ToString(),
                 FirstName = input.FirstName,
                 LastName = input.LastName,
                 Email = input.Email,

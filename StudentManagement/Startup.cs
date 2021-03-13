@@ -8,7 +8,9 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using StudentManagement.Data;
 using StudentManagement.GraphQL;
-using StudentManagement.GraphQL.Types;
+using StudentManagement.GraphQL.Courses;
+using StudentManagement.GraphQL.Programs;
+using StudentManagement.GraphQL.Students;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -37,6 +39,7 @@ namespace StudentManagement
             services
                 .AddGraphQLServer()
                 .AddQueryType<Query>()
+                .AddMutationType<Mutation>()
                 .AddType<StudentType>()
                 .AddType<CourseType>()
                 .AddType<ProgramType>()

@@ -31,7 +31,7 @@ namespace StudentManagement.GraphQL.Students
         {
             public Models.Program GetProgram(Student student, [ScopedService] AppDbContext context)
             {
-                return student.Program;
+                return context.Programs.Where(p=>p.ProgramId==student.ProgramId).FirstOrDefault();
             }
 
             public IQueryable<Course> GetCourses(Student student,[ScopedService]AppDbContext context)

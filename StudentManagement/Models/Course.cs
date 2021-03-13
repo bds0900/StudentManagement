@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Microsoft.EntityFrameworkCore;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
@@ -7,6 +8,7 @@ using System.Threading.Tasks;
 
 namespace StudentManagement.Models
 {
+    [Index(nameof(CourseNumber), IsUnique = true)]
     public class Course
     {
         [Key]
@@ -18,11 +20,7 @@ namespace StudentManagement.Models
         public int Credits { get; set; }
         [Required]
         public int Hours { get; set; }
-        [Required]
-        public string Grade { get; set; }
-        [Required]
-        public string GradePoint { get; set; }
-        
+                
 
 
         public string ProgramId { get; set; }

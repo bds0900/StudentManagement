@@ -40,5 +40,21 @@ namespace StudentManagement.GraphQL
         {
             return context.Addresses;
         }
+
+        [UseDbContext(typeof(AppDbContext))]
+        public Models.Program GetProgramByNumber([ScopedService] AppDbContext context, string programNumber)
+        {
+            return context.Programs.Where(p=>p.ProgramNumber==programNumber).FirstOrDefault();
+        }
+        [UseDbContext(typeof(AppDbContext))]
+        public Course GetCourseByNumber([ScopedService] AppDbContext context,string courseNumber)
+        {
+            return context.Courses.Where(c=>c.CourseNumber==courseNumber).FirstOrDefault();
+        }
+        [UseDbContext(typeof(AppDbContext))]
+        public Student GetStudentByNumber([ScopedService] AppDbContext context,string studentNumber)
+        {
+            return context.Students.Where(s=>s.StudentNumber==studentNumber).FirstOrDefault();
+        }
     }
 }

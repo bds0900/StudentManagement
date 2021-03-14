@@ -36,7 +36,7 @@ namespace StudentManagement.GraphQL.Students
 
             public IQueryable<Course> GetCourses(Student student,[ScopedService]AppDbContext context)
             {
-                return context.Courses.Include(c => c.CourseStudent).ThenInclude(cs => cs.StudentId == student.StudentId);
+                return context.Courses.Where(c => c.Students.Contains(student));
             }
 
         }

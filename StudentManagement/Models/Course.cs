@@ -15,6 +15,8 @@ namespace StudentManagement.Models
         public string CourseId { get; set; }
         [Required]
         public string CourseNumber { get; set; }
+        [Required]
+        public string CourseName { get; set; }
         public string Description { get; set; }
         [Required]
         public int Credits { get; set; }

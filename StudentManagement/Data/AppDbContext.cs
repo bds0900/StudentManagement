@@ -18,6 +18,7 @@ namespace StudentManagement.Data
         public DbSet<Models.Program> Programs { get; set; }
         public DbSet<Course> Courses { get; set; }
         public DbSet<Address> Addresses { get; set; }
+        public DbSet<CourseStudent> CourseStudent { get; set; }
         
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {

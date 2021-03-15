@@ -1,5 +1,6 @@
 ﻿using HotChocolate;
 using HotChocolate.Data;
+using Microsoft.EntityFrameworkCore;
 using StudentManagement.Data;
 using StudentManagement.GraphQL.Courses;
 using StudentManagement.GraphQL.Programs;
@@ -62,6 +63,16 @@ namespace StudentManagement.GraphQL
             await context.SaveChangesAsync();
             return student;
 
+        }
+
+        [UseDbContext(typeof(AppDbContext))]
+        public async Task<Student> EnrollInCourse(EnrollInput input, [ScopedService] AppDbContext context)
+        {
+            var studentId = context.Students.Where(s => s.StudentNumber == input.StudentNumber).Select(s=>s.StudentId).FirstOrDefault();
+            var courseId = context.Courses.Where(c => c.CourseNumber == input.CourseNumber).Select(c=>c.CourseId).FirstOrDefault();
+            await context.CourseStudent.AddAsync(new CourseStudent { CourseId = courseId, StudentId = studentId });
+            await context.SaveChangesAsync();
+            return context.Students.Where(s => s.StudentNumber == input.StudentNumber).FirstOrDefault();
         }
     }
 }

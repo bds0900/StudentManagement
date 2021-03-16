@@ -40,11 +40,13 @@ namespace StudentManagement
                 .AddGraphQLServer()
                 .AddQueryType<Query>()
                 .AddMutationType<Mutation>()
+                .AddSubscriptionType<Subscription>()
                 .AddType<StudentType>()
                 .AddType<CourseType>()
                 .AddType<ProgramType>()
                 .AddFiltering()
-                .AddSorting();
+                .AddSorting()
+                .AddInMemorySubscriptions();
 
         }
 
@@ -55,6 +57,8 @@ namespace StudentManagement
             {
                 app.UseDeveloperExceptionPage();
             }
+
+            app.UseWebSockets();
 
             app.UseRouting();
 

@@ -1,5 +1,6 @@
 ﻿using HotChocolate;
 using HotChocolate.Data;
+using HotChocolate.Subscriptions;
 using Microsoft.EntityFrameworkCore;
 using StudentManagement.Data;
 using StudentManagement.GraphQL.Courses;
@@ -10,6 +11,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 
 namespace StudentManagement.GraphQL
@@ -17,7 +19,12 @@ namespace StudentManagement.GraphQL
     public class Mutation
     {
         [UseDbContext(typeof(AppDbContext))]
-        public async Task<Models.Program> AddProgramAsync(AddProgramInput input, [ScopedService] AppDbContext context)
+        public async Task<Models.Program> AddProgramAsync(
+            AddProgramInput input, 
+            [ScopedService] AppDbContext context,
+            ITopicEventSender eventSender,
+            CancellationToken cancellationToken
+            )
         {
             var program = new Models.Program
             {
@@ -25,7 +32,8 @@ namespace StudentManagement.GraphQL
                 ProgramNumber = input.ProgramNumber
             };
             await context.Programs.AddAsync(program);
-            await context.SaveChangesAsync();
+            await context.SaveChangesAsync(cancellationToken);
+            await eventSender.SendAsync(nameof(Subscription.OnProgramAdd), program, cancellationToken);
             return program;
         }
         [UseDbContext(typeof(AppDbContext))]
